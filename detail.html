@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Profil UMKM - Dusun Demangan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --color-terracotta: #E07A5F;
+            --color-sand: #F2CC8F;
+            --color-sage: #6B705C;
+            --color-bg-light: #F4F1DE;
+            --color-lime-green: #1DB233;
+            --color-deep-green: #004025;
+            --text-dark: #2F3E46;
+            --white: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--color-bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(107, 112, 92, 0.15);
+            height: fit-content;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--color-sage);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+
+        .btn-back:hover {
+            color: var(--color-terracotta);
+        }
+
+        .header-section {
+            border-bottom: 2px solid var(--color-sand);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .umkm-title {
+            font-size: 1.8rem;
+            color: var(--color-deep-green);
+            font-weight: 700;
+        }
+
+        .umkm-meta {
+            font-size: 0.9rem;
+            color: var(--color-terracotta);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-deep-green);
+            margin: 20px 0 8px 0;
+        }
+
+        .umkm-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--color-sage);
+            text-align: justify;
+        }
+
+        .catalog-box {
+            background-color: #FAF8F5;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px dashed var(--color-sand);
+            margin-top: 10px;
+        }
+
+        .catalog-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .catalog-item:last-child {
+            border-bottom: none;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--color-lime-green);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-wa {
+            background-color: var(--color-lime-green);
+            color: var(--white);
+        }
+
+        .btn-maps {
+            background-color: var(--white);
+            color: var(--color-terracotta);
+            border: 1.5px solid var(--color-terracotta);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Tombol Kembali ke Peta Utama -->
+        <a href="index.html" class="btn-back">← Kembali ke Peta Dashboard</a>
+
+        <div class="header-section">
+            <h1 class="umkm-title" id="title">Loading...</h1>
+            <div class="umkm-meta" id="meta">...</div>
+        </div>
+
+        <h2 class="section-title">Cerita & Profil UMKM</h2>
+        <p class="umkm-desc" id="story">...</p>
+
+        <h2 class="section-title">Katalog & Harga Produk</h2>
+        <div class="catalog-box" id="catalog">
+            <!-- Katalog akan diisi oleh JavaScript -->
+        </div>
+
+        <!-- Tombol Aksi Kontak & Direct Maps -->
+        <div class="action-buttons">
+            <a href="#" id="waLink" target="_blank" class="btn-action btn-wa">💬 Hubungi via WhatsApp</a>
+            <a href="#" id="mapsLink" target="_blank" class="btn-action btn-maps">📍 Petunjuk Arah Google Maps</a>
+        </div>
+    </div>
+
+    <!-- SCRIPT DATABASE DINAMIS -->
+    <script>
+        // Database JSON UMKM Demangan
+        const databaseUMKM = {
+            "miss-aisyah": {
+                name: "Miss Aisyah Butik",
+                owner: "Ibu Yuliana",
+                location: "RT 01 Dusun Demangan",
+                category: "Fashion & Busana Muslimah",
+                story: "Miss Aisyah Butik berawal dari hobi fashion sang pemilik. Mengawali pemasaran lewat media sosial, kini butik ini fokus menghadirkan produk busana Muslimah berkualitas menengah ke bawah yang ramah di kantong masyarakat dengan memberdayakan lulusan SMK lokal Ngluwar.",
+                catalog: [
+                    { name: "Jilbab (Laris)", price: "Rp 49.000" },
+                    { name: "Gamis & Baju Santai", price: "Rp 100.000 - Rp 425.000" }
+                ],
+                wa: "https://wa.me/628123456789", // Ganti no WA asli
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "farhan-snack": {
+                name: "Farhan Snack",
+                owner: "Bapak Agus Indriyanto",
+                location: "RT 01 Dusun Demangan",
+                category: "Kuliner / Keripik & Camilan",
+                story: "Usaha olahan camilan resep otodidak racikan Pak Agus. Menggunakan bahan baku tempe berkualitas dari Grogolan, Farhan Snack memberdayakan ibu-ibu tetangga kampung untuk proses pemotongan, penggorengan, hingga pembungkusan.",
+                catalog: [
+                    { name: "Keripik Tempe (180-200gr)", price: "Rp 7.000" },
+                    { name: "Keripik Seledri / Bawang (3kg)", price: "Rp 86.000" }
+                ],
+                wa: "https://wa.me/6283149523878",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            }
+            // Tambahkan data ID UMKM lainnya di sini...
+        };
+
+        // Fungsi membaca ID dari URL (contoh: detail.html?id=miss-aisyah)
+        const urlParams = new URLSearchParams(window.location.search);
+        const umkmId = urlParams.get('id');
+
+        // Tampilkan Data ke Halaman
+        if (umkmId && databaseUMKM[umkmId]) {
+            const data = databaseUMKM[umkmId];
+            document.getElementById('title').innerText = data.name;
+            document.getElementById('meta').innerText = `${data.category} • ${data.location} (Pemilik: ${data.owner})`;
+            document.getElementById('story').innerText = data.story;
+            document.getElementById('waLink').href = data.wa;
+            document.getElementById('mapsLink').href = data.maps;
+
+            const catalogBox = document.getElementById('catalog');
+            catalogBox.innerHTML = '';
+            data.catalog.forEach(item => {
+                catalogBox.innerHTML += `
+                    <div class="catalog-item">
+                        <span>${item.name}</span>
+                        <span class="price">${item.price}</span>
+                    </div>
+                `;
+            });
+        } else {
+            document.querySelector('.container').innerHTML = '<h2>Data UMKM tidak ditemukan.</h2><br><a href="index.html">Kembali ke Peta</a>';
+        }
+    </script>
+</body>
+
+</html>
