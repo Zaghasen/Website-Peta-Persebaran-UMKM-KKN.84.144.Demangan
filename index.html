@@ -1,153 +1,139 @@
 <!doctype html>
 <html lang="id">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peta Persebaran UMKM Dusun Demangan</title>
     <!-- Google Fonts Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <style>
-        /* --- RESET & VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
+      /* --- RESET & VARIABLES --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
 
-        :root {
-            /* Warm Aesthetic Palette */
-            --color-terracotta: #e07a5f;
-            --color-sand: #f2cc8f;
-            --color-sage: #6b705c;
-            --color-bg-light: #f4f1de;
+      :root {
+        /* Warm Aesthetic Palette */
+        --color-terracotta: #e07a5f;
+        --color-sand: #f2cc8f;
+        --color-sage: #6b705c;
+        --color-bg-light: #f4f1de;
 
-            /* Green & Yellow Accent Palette */
-            --color-bright-yellow: #ffe523;
-            --color-gold: #ffd500;
-            --color-lime-green: #1db233;
-            --color-deep-green: #004025;
+        /* Green & Yellow Accent Palette */
+        --color-bright-yellow: #ffe523;
+        --color-gold: #ffd500;
+        --color-lime-green: #1db233;
+        --color-deep-green: #004025;
 
-            /* Neutrals */
-            --text-dark: #2f3e46;
-            --white: #ffffff;
-            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
+        /* Neutrals */
+        --text-dark: #2f3e46;
+        --white: #ffffff;
+        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
 
-        body {
-            background-color: var(--color-bg-light);
-            color: var(--text-dark);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 24px;
-            /* Bingkai luar agar maps berbentuk Card dan tidak full screen */
-        }
+      body {
+        background-color: var(--color-bg-light);
+        color: var(--text-dark);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 24px;
+        /* Bingkai luar agar maps berbentuk Card dan tidak full screen */
+      }
 
-        /* --- DASHBOARD WRAPPER CONTAINER (CARD STYLE) --- */
-        .dashboard-card {
-            flex: 1;
-            background-color: var(--white);
-            border-radius: 24px;
-            box-shadow: var(--shadow-card);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid rgba(107, 112, 92, 0.15);
-        }
+      /* --- DASHBOARD WRAPPER CONTAINER (CARD STYLE) --- */
+      .dashboard-card {
+        flex: 1;
+        background-color: var(--white);
+        border-radius: 24px;
+        box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(107, 112, 92, 0.15);
+      }
 
-        /* --- NAVBAR INTERNAL --- */
-        header {
-            height: 75px;
-            background-color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            border-bottom: 1px solid rgba(107, 112, 92, 0.1);
-            z-index: 10;
-        }
+      /* --- NAVBAR INTERNAL --- */
+      header {
+        height: 75px;
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        border-bottom: 1px solid rgba(107, 112, 92, 0.1);
+        z-index: 10;
+      }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-        .logo-icon {
-            background: linear-gradient(135deg, var(--color-lime-green), var(--color-deep-green));
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-bright-yellow);
-            font-weight: 700;
-        }
+      .logo-icon {
+        background: linear-gradient(135deg, var(--color-lime-green), var(--color-deep-green));
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-bright-yellow);
+        font-weight: 700;
+      }
 
-        .logo-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--color-deep-green);
-        }
+      .logo-text {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-deep-green);
+      }
 
-        .logo-text span {
-            color: var(--color-terracotta);
-        }
+      .logo-text span {
+        color: var(--color-terracotta);
+      }
 
-        .nav-info {
-            font-size: 0.85rem;
-            color: var(--color-sage);
-            font-weight: 500;
-            background-color: rgba(242, 204, 143, 0.25);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--color-sand);
-        }
+      .nav-info {
+        font-size: 0.85rem;
+        color: var(--color-sage);
+        font-weight: 500;
+        background-color: rgba(242, 204, 143, 0.25);
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--color-sand);
+      }
 
-        /* --- AREA MAPS CONTAINER --- */
-        .map-section {
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            background-color: #e5e9f0;
-        }
+      /* --- AREA MAPS CONTAINER --- */
+      .map-section {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        background-color: #e5e9f0;
+      }
 
-        /* Iframe dibuat 100% mengisi area kartu agar fleksibel di layar manapun */
-        .mymaps-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+      /* Iframe dibuat 100% mengisi area kartu agar fleksibel di layar manapun */
+      .mymaps-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- CONTAINER UTAMA DASHBOARD BERBENTUK CARD -->
     <div class="dashboard-card">
-        <!-- HEADER INTERNAL -->
-        <header>
-            <div class="logo-container">
-                <div class="logo-icon">M</div>
-                <div class="logo-text">Demangan<span>UMKM</span></div>
-            </div>
-            <div class="nav-info">📍 Peta UMKM Dusun Demangan, Ngluwar, Magelang</div>
-        </header>
-
-        <!-- AREA MAPS DENGAN KODE GOOGLE MY MAPS MILIKMU -->
-        <main class="map-section">
-            <iframe class="mymaps-iframe"
-                src="https://www.google.com/maps/d/u/0/embed?mid=1QeON5AxCAm5Rir7nVQx91TpXCUuYRss&ehbc=2E312F"
-                allowfullscreen> </iframe>
-        </main>
+      <!-- AREA MAPS DENGAN KODE GOOGLE MY MAPS MILIKMU -->
+      <main class="map-section">
+        <iframe class="mymaps-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1QeON5AxCAm5Rir7nVQx91TpXCUuYRss&ehbc=2E312F" allowfullscreen> </iframe>
+      </main>
     </div>
-</body>
-
+  </body>
 </html>
