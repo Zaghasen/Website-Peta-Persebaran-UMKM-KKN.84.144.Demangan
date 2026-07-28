@@ -1,139 +1,1593 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Peta Persebaran UMKM Dusun Demangan</title>
-    <!-- Google Fonts Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <style>
-      /* --- RESET & VARIABLES --- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peta Persebaran UMKM Dusun Demangan | KKN 84.144 UPNVY</title>
+  <meta name="description"
+    content="Peta interaktif persebaran UMKM di Dusun Demangan, Ngluwar, Magelang. Program KKN Kelompok 84.144 UPN Veteran Yogyakarta — Program Studi Sistem Informasi." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ============================
+         RESET & VARIABLES
+      ============================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-terracotta: #e07a5f;
+      --color-terracotta-light: #f0a58f;
+      --color-sand: #f2cc8f;
+      --color-sand-light: #faf3e0;
+      --color-sage: #6b705c;
+      --color-bg-light: #f4f1de;
+
+      --color-bright-yellow: #ffe523;
+      --color-gold: #ffd500;
+      --color-lime-green: #1db233;
+      --color-lime-light: #e8f7eb;
+      --color-deep-green: #004025;
+      --color-mid-green: #2d6a4f;
+
+      --text-dark: #2f3e46;
+      --text-muted: #7a8c7e;
+      --white: #ffffff;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.14);
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--color-bg-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============================
+         HERO LOGO
+      ============================ */
+    .hero-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-logo-img {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.25));
+    }
+
+    .hero-logo-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+    }
+
+    /* ============================
+         HERO SECTION
+      ============================ */
+    .hero-section {
+      background: linear-gradient(135deg, var(--color-deep-green) 0%, var(--color-mid-green) 50%, #3a7c5e 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 64px 40px 80px;
+      text-align: center;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: rgba(255, 229, 35, 0.08);
+      pointer-events: none;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -40px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(224, 122, 95, 0.1);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 229, 35, 0.15);
+      border: 1px solid rgba(255, 229, 35, 0.35);
+      color: var(--color-bright-yellow);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-badge span {
+      font-size: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+      max-width: 700px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--color-bright-yellow);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat-item {
+      text-align: center;
+    }
+
+    .hero-stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--color-bright-yellow);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      align-self: center;
+    }
+
+    /* ============================
+         SECTION WRAPPER
+      ============================ */
+    .section {
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700;
+      color: var(--color-deep-green);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ============================
+         MAP SECTION
+      ============================ */
+    #peta {
+      background-color: var(--color-bg-light);
+      padding-top: 56px;
+      padding-bottom: 0;
+    }
+
+    .map-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(107, 112, 92, 0.12);
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
+    }
+
+    /* ============================
+         UMKM SECTION
+      ============================ */
+    #umkm {
+      background-color: var(--color-bg-light);
+      padding-bottom: 20px;
+    }
+
+    .umkm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .umkm-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(107, 112, 92, 0.1);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .umkm-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(29, 178, 51, 0.25);
+    }
+
+    .umkm-card:hover .card-arrow {
+      transform: translateX(4px);
+      color: var(--color-lime-green);
+    }
+
+    .card-emoji-header {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-category-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-deep-green);
+      line-height: 1.3;
+    }
+
+    .card-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(107, 112, 92, 0.08);
+    }
+
+    .card-location {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-arrow {
+      font-size: 1rem;
+      color: var(--color-sage);
+      transition: var(--transition);
+    }
+
+    /* ─── 4 Category color themes ─── */
+
+    /* 🍽️ Kuliner dan Makanan Olahan — oranye hangat */
+    .cat-kuliner {
+      background-color: #fff3e0;
+      color: #bf5000;
+      border: 1px solid #ffcc80;
+    }
+
+    .bg-kuliner {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    }
+
+    /* 🏪 Toko Kelontong dan Lainnya — biru tua */
+    .cat-kelontong {
+      background-color: #e3f2fd;
+      color: #1565c0;
+      border: 1px solid #90caf9;
+    }
+
+    .bg-kelontong {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    }
+
+    /* 🔧 Jasa dan Persewaan — hijau zamrud */
+    .cat-jasa {
+      background-color: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+    }
+
+    .bg-jasa {
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    }
+
+    /* 👗 Fashion dan Kerajinan — merah mawar */
+    .cat-fashion {
+      background-color: #fce4ec;
+      color: #880e4f;
+      border: 1px solid #f48fb1;
+    }
+
+    .bg-fashion {
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    }
+
+    /* ============================
+         KKN SECTION
+      ============================ */
+    #kkn {
+      background: linear-gradient(160deg, var(--color-deep-green) 0%, var(--color-mid-green) 100%);
+      padding: 70px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #kkn::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(255, 229, 35, 0.05);
+      pointer-events: none;
+    }
+
+    .kkn-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .kkn-top {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .kkn-top .section-tag {
+      color: var(--color-bright-yellow);
+      opacity: 0.9;
+    }
+
+    .kkn-top .section-title {
+      color: var(--white);
+    }
+
+    .kkn-top .section-desc {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .kkn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .kkn-info-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      backdrop-filter: blur(6px);
+      transition: var(--transition);
+    }
+
+    .kkn-info-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 229, 35, 0.3);
+    }
+
+    .kkn-info-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .kkn-info-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-bright-yellow);
+      margin-bottom: 8px;
+    }
+
+    .kkn-info-text {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.65;
+    }
+
+    .kkn-info-highlight {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Member list */
+    .kkn-members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .member-chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .member-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-lime-green), var(--color-deep-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .member-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.3;
+    }
+
+    /* ============================
+         DEMANGAN SECTION
+      ============================ */
+    #demangan {
+      padding: 70px 40px;
+      background-color: var(--color-bg-light);
+    }
+
+    .demangan-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .demangan-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .demangan-text-side .section-header {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .demangan-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+
+    .demangan-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .demangan-fact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(107, 112, 92, 0.08);
+    }
+
+    .fact-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .fact-content strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-deep-green);
+      margin-bottom: 2px;
+    }
+
+    .fact-content span {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .demangan-visual-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .demangan-highlight-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(107, 112, 92, 0.1);
+      text-align: center;
+    }
+
+    .demangan-highlight-card .big-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .demangan-highlight-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-deep-green);
+      margin-bottom: 10px;
+    }
+
+    .demangan-highlight-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .demangan-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .demangan-mini-card {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(107, 112, 92, 0.08);
+      text-align: center;
+    }
+
+    .demangan-mini-card .mini-icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .demangan-mini-card strong {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-deep-green);
+      display: block;
+    }
+
+    .demangan-mini-card span {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ============================
+         FOOTER
+      ============================ */
+    footer {
+      background: var(--color-deep-green);
+      color: rgba(255, 255, 255, 0.65);
+      text-align: center;
+      padding: 28px 40px;
+      font-size: 0.83rem;
+      line-height: 1.7;
+    }
+
+    footer strong {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    footer .footer-divider {
+      margin: 0 8px;
+      opacity: 0.4;
+    }
+
+    /* ============================
+         RESPONSIVE
+      ============================ */
+
+    /* ── Laptop kecil (≤ 1024px) ── */
+    @media (max-width: 1024px) {
+      .section {
+        padding: 56px 32px;
       }
 
-      :root {
-        /* Warm Aesthetic Palette */
-        --color-terracotta: #e07a5f;
-        --color-sand: #f2cc8f;
-        --color-sage: #6b705c;
-        --color-bg-light: #f4f1de;
-
-        /* Green & Yellow Accent Palette */
-        --color-bright-yellow: #ffe523;
-        --color-gold: #ffd500;
-        --color-lime-green: #1db233;
-        --color-deep-green: #004025;
-
-        /* Neutrals */
-        --text-dark: #2f3e46;
-        --white: #ffffff;
-        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
+      #kkn {
+        padding: 60px 32px;
       }
 
-      body {
-        background-color: var(--color-bg-light);
-        color: var(--text-dark);
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        padding: 24px;
-        /* Bingkai luar agar maps berbentuk Card dan tidak full screen */
+      #demangan {
+        padding: 60px 32px;
       }
 
-      /* --- DASHBOARD WRAPPER CONTAINER (CARD STYLE) --- */
-      .dashboard-card {
-        flex: 1;
-        background-color: var(--white);
-        border-radius: 24px;
-        box-shadow: var(--shadow-card);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1px solid rgba(107, 112, 92, 0.15);
+      #peta {
+        padding: 48px 32px 0;
       }
 
-      /* --- NAVBAR INTERNAL --- */
-      header {
-        height: 75px;
-        background-color: var(--white);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 32px;
-        border-bottom: 1px solid rgba(107, 112, 92, 0.1);
-        z-index: 10;
+      .kkn-info-highlight {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* ── Tablet landscape (≤ 900px) ── */
+    @media (max-width: 900px) {
+      .kkn-grid {
+        grid-template-columns: 1fr;
       }
 
-      .logo-container {
-        display: flex;
-        align-items: center;
+      .demangan-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .demangan-text-side .section-header {
+        text-align: center;
+      }
+
+      .demangan-desc {
+        text-align: center;
+      }
+    }
+
+    /* ── Tablet portrait (≤ 768px) ── */
+    @media (max-width: 768px) {
+      .hero-logo-img {
+        width: 240px;
+        height: 240px;
+      }
+
+      .hero-section {
+        padding: 56px 28px 64px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.93rem;
+      }
+
+      .hero-stats {
+        gap: 20px;
+      }
+
+      .hero-stat-number {
+        font-size: 1.7rem;
+      }
+
+      .section {
+        padding: 52px 28px;
+      }
+
+      #kkn {
+        padding: 56px 28px;
+      }
+
+      #demangan {
+        padding: 56px 28px;
+      }
+
+      #peta {
+        padding: 44px 28px 0;
+      }
+
+      .map-wrapper iframe {
+        height: 420px;
+      }
+
+      .umkm-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .kkn-info-card {
+        padding: 22px;
+      }
+
+      .kkn-info-highlight {
+        font-size: 1.15rem;
+      }
+
+      .kkn-members-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+
+      .demangan-highlight-card {
+        padding: 22px;
+      }
+    }
+
+    /* ── Mobile besar (≤ 600px) ── */
+    @media (max-width: 600px) {
+      .hero-logo-img {
+        width: 200px;
+        height: 200px;
+      }
+
+      .hero-logo-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+      }
+
+      .hero-section {
+        padding: 44px 20px 52px;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: 5px 14px;
+        margin-bottom: 16px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.88rem;
+        margin-bottom: 28px;
+      }
+
+      .hero-stats {
+        gap: 0;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+      }
+
+      .hero-divider {
+        display: none;
+      }
+
+      .hero-stat-number {
+        font-size: 1.6rem;
+      }
+
+      .hero-stat-label {
+        font-size: 0.75rem;
+      }
+
+      .section {
+        padding: 44px 16px;
+      }
+
+      .section-desc {
+        font-size: 0.88rem;
+      }
+
+      #kkn {
+        padding: 48px 16px;
+      }
+
+      #demangan {
+        padding: 48px 16px;
+      }
+
+      #peta {
+        padding: 40px 16px 0;
+      }
+
+      .map-wrapper {
+        border-radius: var(--radius-md);
+      }
+
+      .map-wrapper iframe {
+        height: 320px;
+      }
+
+      .umkm-grid {
+        grid-template-columns: 1fr 1fr;
         gap: 12px;
       }
 
-      .logo-icon {
-        background: linear-gradient(135deg, var(--color-lime-green), var(--color-deep-green));
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: flex;
+      .card-emoji-header {
+        height: 80px;
+        font-size: 2.4rem;
+      }
+
+      .card-body {
+        padding: 12px 14px 14px;
+      }
+
+      .card-name {
+        font-size: 0.9rem;
+      }
+
+      .card-tagline {
+        font-size: 0.78rem;
+      }
+
+      .kkn-grid {
+        gap: 14px;
+      }
+
+      .kkn-info-card {
+        padding: 18px;
+      }
+
+      .kkn-info-highlight {
+        font-size: 1.1rem;
+      }
+
+      .kkn-info-text {
+        font-size: 0.83rem;
+      }
+
+      .kkn-members-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .demangan-cards-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .demangan-mini-card {
+        padding: 14px 10px;
+      }
+
+      .demangan-mini-card strong {
+        font-size: 1.1rem;
+      }
+
+      footer {
+        padding: 24px 16px;
+        font-size: 0.78rem;
+      }
+
+      .footer-divider {
+        display: none;
+      }
+    }
+
+    /* ── Mobile kecil (≤ 420px) ── */
+    @media (max-width: 420px) {
+      .umkm-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        gap: 12px;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        color: var(--color-bright-yellow);
-        font-weight: 700;
       }
 
-      .logo-text {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--color-deep-green);
+      .kkn-members-grid {
+        grid-template-columns: 1fr;
       }
 
-      .logo-text span {
-        color: var(--color-terracotta);
+      .demangan-cards-row {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .nav-info {
-        font-size: 0.85rem;
-        color: var(--color-sage);
-        font-weight: 500;
-        background-color: rgba(242, 204, 143, 0.25);
-        padding: 6px 16px;
-        border-radius: 20px;
-        border: 1px solid var(--color-sand);
+      .map-wrapper iframe {
+        height: 280px;
+      }
+    }
+
+    /* ── Mobile sangat kecil (≤ 360px) ── */
+    @media (max-width: 360px) {
+      .hero-logo-img {
+        width: 160px;
+        height: 160px;
       }
 
-      /* --- AREA MAPS CONTAINER --- */
-      .map-section {
-        flex: 1;
-        width: 100%;
-        height: 100%;
-        background-color: #e5e9f0;
+      .hero-section {
+        padding: 36px 14px 44px;
       }
 
-      /* Iframe dibuat 100% mengisi area kartu agar fleksibel di layar manapun */
-      .mymaps-iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
+      .section {
+        padding: 36px 14px;
       }
-    </style>
-  </head>
 
-  <body>
-    <!-- CONTAINER UTAMA DASHBOARD BERBENTUK CARD -->
-    <div class="dashboard-card">
-      <!-- AREA MAPS DENGAN KODE GOOGLE MY MAPS MILIKMU -->
-      <main class="map-section">
-        <iframe class="mymaps-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1QeON5AxCAm5Rir7nVQx91TpXCUuYRss&ehbc=2E312F" allowfullscreen> </iframe>
-      </main>
+      #kkn,
+      #demangan {
+        padding: 40px 14px;
+      }
+
+      #peta {
+        padding: 36px 14px 0;
+      }
+
+      .demangan-cards-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Mencegah overflow horizontal di semua layar ── */
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ── Touch-friendly: ukuran tap target minimal ── */
+    @media (hover: none) and (pointer: coarse) {
+      .umkm-card:hover {
+        transform: none;
+        box-shadow: var(--shadow-card);
+        border-color: rgba(107, 112, 92, 0.1);
+      }
+
+      .umkm-card:active {
+        transform: scale(0.98);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-action:hover {
+        transform: none;
+      }
+
+      .btn-action:active {
+        transform: scale(0.97);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero-section" id="beranda">
+    <!-- Logo di atas judul -->
+    <div class="hero-logo-wrap">
+      <img src="assets/LOGO.png" alt="Logo KKN Demangan" class="hero-logo-img" />
+      <span class="hero-logo-label">KKN 84.144 • UPN Veteran Yogyakarta</span>
     </div>
-  </body>
+    <h1 class="hero-title">
+      Peta Persebaran <em>UMKM</em><br />Dusun Demangan
+
+    </h1>
+    <p class="hero-subtitle">
+      Mengenal dan mendukung usaha mikro, kecil, dan menengah warga Dusun Demangan,
+      Desa Ngluwar, Magelang — diinisiasi sebagai program kerja KKN 84.144 UPN Veteran Yogyakarta.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-number">19</div>
+        <div class="hero-stat-label">UMKM Terdaftar</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-number">4</div>
+        <div class="hero-stat-label">Kategori Usaha</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PETA ==================== -->
+  <div id="peta">
+    <div style="max-width:1200px; margin:0 auto; padding: 0 40px;">
+      <div class="section-header" style="margin-bottom:28px;">
+        <span class="section-tag">📌 Lokasi Interaktif</span>
+        <h2 class="section-title">Peta Sebaran UMKM</h2>
+        <p class="section-desc">Klik pin di peta untuk melihat lokasi masing-masing UMKM di Dusun Demangan.</p>
+      </div>
+    </div>
+    <div class="map-wrapper" style="max-width:1200px; margin:0 auto;">
+      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1QeON5AxCAm5Rir7nVQx91TpXCUuYRss&ehbc=2E312F"
+        allowfullscreen loading="lazy" title="Peta Persebaran UMKM Dusun Demangan"></iframe>
+    </div>
+  </div>
+
+
+  <!-- ==================== UMKM CARDS ==================== -->
+  <section id="umkm" class="section" style="padding-top:52px; padding-bottom:60px;">
+    <div class="section-header">
+      <span class="section-tag">🏪 Direktori Usaha</span>
+      <h2 class="section-title">UMKM Dusun Demangan</h2>
+      <p class="section-desc">Klik kartu untuk mengetahui lebih detail profil, produk, dan cara menghubungi setiap UMKM.
+      </p>
+    </div>
+
+    <div class="umkm-grid" id="umkmGrid">
+      <!-- Cards dirender oleh JavaScript -->
+    </div>
+  </section>
+
+  <!-- ==================== KKN SECTION ==================== -->
+  <section id="kkn">
+    <div class="kkn-inner">
+      <div class="kkn-top">
+        <span class="section-tag">🎓 Tentang Kami</span>
+        <h2 class="section-title">KKN Kelompok 84.144</h2>
+        <p class="section-desc" style="color:rgba(255,255,255,0.65);">
+          Mahasiswa UPN Veteran Yogyakarta yang mengabdi di Dusun Demangan, Desa Ngluwar,
+          Kecamatan Ngluwar, Kabupaten Magelang — Semester Genap 2025/2026.
+        </p>
+      </div>
+
+      <div class="kkn-grid">
+        <!-- Info Cards -->
+        <div class="kkn-info-card">
+          <span class="kkn-info-icon">🏛️</span>
+          <div class="kkn-info-title">Universitas</div>
+          <span class="kkn-info-highlight">UPN Veteran Yogyakarta</span>
+          <div class="kkn-info-text">Program KKN-BN Angkatan 84 dengan tema <em>"Demangan Bersinergi: Tumbuh Bersama,
+              Bergerak Berdampak"</em> yang mengutamakan pemberdayaan masyarakat berbasis potensi lokal.</div>
+        </div>
+
+        <div class="kkn-info-card">
+          <span class="kkn-info-icon">📅</span>
+          <div class="kkn-info-title">Periode 2</div>
+          <span class="kkn-info-highlight">1 Juli - 30 Juli 2026</span>
+          <div class="kkn-info-text">Kelompok 84.144 ditempatkan di Dusun Demangan, Desa Ngluwar, Kecamatan Ngluwar,
+            Kabupaten Magelang, Jawa Tengah.</div>
+        </div>
+
+        <div class="kkn-info-card" style="grid-column: 1 / -1;">
+          <span class="kkn-info-icon">🎯</span>
+          <div class="kkn-info-title">Program Kerja</div>
+
+          <div style="margin-top:12px;">
+            <div
+              style="font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px;">
+              📦 Program Kelompok</div>
+            <div class="kkn-info-text">
+              ✅ Sosialisasi &amp; Penanaman Tanaman Obat Keluarga (TOGA)<br />
+              ✅ Pengolahan Limbah Sampah dengan Maggot<br />
+              ✅ Revitalisasi Dusun
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div
+              style="font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px;">
+              👤 Program Individu</div>
+            <div class="kkn-info-text">
+              ✅ Peta Persebaran Usaha Mikro, Kecil, dan Menengah (UMKM)<br />
+              ✅ Perpustakaan Mini<br />
+              ✅ Menabung Kreatif<br />
+              ✅ Ecobrick Pengolahan Sampah Plastik<br />
+              ✅ Pheromone Trap<br />
+              ✅ Pembelajaran Kreatif Batik Tie-Dye<br />
+              ✅ Sosialisasi Sadar Politik<br />
+              ✅ Gelang Manik Kreatif: Edukasi Ekonomi Kreatif melalui Pembuatan Gelang bagi Anak-anak Dusun
+              Demangan<br />
+              ✅ Digitalisasi Lokasi Persebaran UMKM dan Profil UMKM<br />
+              ✅ Tempat Pemilahan Sampah 3R
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div
+              style="font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px;">
+              🌱 Program Pendukung</div>
+            <div class="kkn-info-text">
+              ✅ Sekolah Mini<br />
+              ✅ Voli Rutin<br />
+              ✅ Senam Rutin
+            </div>
+          </div>
+        </div>
+
+        <div class="kkn-info-card" style="grid-column: 1 / -1;">
+          <span class="kkn-info-icon">👥</span>
+          <div class="kkn-info-title">Anggota Kelompok</div>
+          <div class="kkn-members-grid" style="margin-top:12px;">
+
+            <div class="member-chip">
+              <div class="member-avatar">YW</div>
+              <div class="member-name">Yudhy Widya Kusumo, S.Sos, M.A.
+                <small style="opacity:0.6;display:block;">Dosen Pembimbing Lapangan</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">TR</div>
+              <div class="member-name">Teuku Razan Kivlan Aufar
+                <small style="opacity:0.6;display:block;">113230260 · Teknik Perminyakan</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">🏅 Ketua</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">HE</div>
+              <div class="member-name">Heba Ekyifa Permadi
+                <small style="opacity:0.6;display:block;">143230209 · Ekonomi Pembangunan</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📋 Sekretaris</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">GA</div>
+              <div class="member-name">Genoveva Areta Widyadhanaswasti
+                <small style="opacity:0.6;display:block;">112230110 · Teknik Pertambangan</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">💰 Bendahara</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">FM</div>
+              <div class="member-name">Febrianthi Maya Utami
+                <small style="opacity:0.6;display:block;">141230720 · Manajemen</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📣 Humas</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">BN</div>
+              <div class="member-name">Batsyeba Mensilaura Naibaho
+                <small style="opacity:0.6;display:block;">122230049 · Teknik Industri</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📣 Humas</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">ZG</div>
+              <div class="member-name">Zalfa Ghalib Hussein
+                <small style="opacity:0.6;display:block;">124230097 · Sistem Informasi</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">💻 PDD</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">IN</div>
+              <div class="member-name">Indy Nur Rahmasari
+                <small style="opacity:0.6;display:block;">135230102 · Agribisnis</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">💻 PDD</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">NF</div>
+              <div class="member-name">Nadhif Frasia Zain Nabil
+                <small style="opacity:0.6;display:block;">134230248 · Agroteknologi</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📦 Logistik</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">DP</div>
+              <div class="member-name">Devya Panca Herahmanta
+                <small style="opacity:0.6;display:block;">154230024 · Hubungan Masyarakat</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📦 Logistik</small>
+              </div>
+            </div>
+
+            <div class="member-chip">
+              <div class="member-avatar">DT</div>
+              <div class="member-name">Dimas Tanjung Mauluddin
+                <small style="opacity:0.6;display:block;">141210129 · Manajemen</small>
+                <small style="opacity:0.55;display:block;color:#4ade80;">📋 Sekretaris</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DEMANGAN SECTION ==================== -->
+  <section id="demangan">
+    <div class="demangan-inner">
+      <div class="demangan-layout">
+        <div class="demangan-text-side">
+          <div class="section-header" style="margin-bottom:20px;">
+            <span class="section-tag">🏘️ Lokasi Pengabdian</span>
+            <h2 class="section-title">Tentang Dusun Demangan</h2>
+          </div>
+          <p class="demangan-desc">
+            Dusun Demangan merupakan salah satu dusun di Desa Ngluwar, Kecamatan Ngluwar, Kabupaten Magelang,
+            Provinsi Jawa Tengah. Secara administratif terdiri atas 1 RW dan 5 RT dengan karakter pedesaan yang
+            ditandai pemukiman penduduk, lahan pertanian, dan lingkungan hijau.
+          </p>
+          <p class="demangan-desc">
+            Iklim tropis dengan dua musim mendukung kesuburan tanah dan kegiatan pertanian sebagai sektor utama.
+            Masyarakatnya dikenal ramah, gotong royong, dan menjunjung nilai-nilai keagamaan serta adat istiadat
+            — salah satunya melalui kesenian tradisional <em>Kridho Mudho Manunggal</em>.
+          </p>
+          <div class="demangan-facts">
+            <div class="demangan-fact-item">
+              <span class="fact-icon">📍</span>
+              <div class="fact-content">
+                <strong>Lokasi Administratif</strong>
+                <span>Desa Ngluwar, Kec. Ngluwar, Kab. Magelang, Jawa Tengah</span>
+              </div>
+            </div>
+            <div class="demangan-fact-item">
+              <span class="fact-icon">🌾</span>
+              <div class="fact-content">
+                <strong>Potensi Utama</strong>
+                <span>Pertanian, perikanan skala kecil, kerajinan, dan UMKM lokal</span>
+              </div>
+            </div>
+            <div class="demangan-fact-item">
+              <span class="fact-icon">🤝</span>
+              <div class="fact-content">
+                <strong>Kehidupan Sosial</strong>
+                <span>Komunitas aktif dengan kegiatan RT/RW, posyandu, keagamaan &amp; kesenian Kridho Mudho
+                  Manunggal</span>
+              </div>
+            </div>
+            <div class="demangan-fact-item">
+              <span class="fact-icon">🏥</span>
+              <div class="fact-content">
+                <strong>Sarana &amp; Prasarana</strong>
+                <span>Jalan, tempat ibadah, balai pertemuan, sarana pendidikan, dan posyandu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demangan-visual-side">
+          <div class="demangan-highlight-card">
+            <span class="big-icon">🌿</span>
+            <h3>Kekayaan Budaya &amp; Potensi Lokal</h3>
+            <p>
+              Dusun Demangan memiliki potensi budaya yang terjaga melalui kesenian tradisional,
+              kearifan lokal, dan semangat wirausaha warganya. Dari produk pertanian hingga
+              UMKM beragam sektor, setiap usaha mencerminkan nilai dan identitas khas dusun ini.
+            </p>
+          </div>
+          <div class="demangan-cards-row">
+            <div class="demangan-mini-card">
+              <span class="mini-icon">🏡</span>
+              <strong>1 RW</strong>
+              <span>5 RT Aktif</span>
+            </div>
+            <div class="demangan-mini-card">
+              <span class="mini-icon">🧑‍🍳</span>
+              <strong>19+</strong>
+              <span>Pelaku UMKM</span>
+            </div>
+            <div class="demangan-mini-card">
+              <span class="mini-icon">🌾</span>
+              <strong>Pertanian</strong>
+              <span>Sektor Utama</span>
+            </div>
+            <div class="demangan-mini-card">
+              <span class="mini-icon">🎭</span>
+              <strong>Budaya</strong>
+              <span>Kridho Mudho Manunggal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <p>
+      <strong>Peta Persebaran UMKM Dusun Demangan</strong><br />
+      Dibuat oleh <strong>Zalfa Ghalib Hussein - 124230097</strong> — UPN Veteran Yogyakarta, Prodi Sistem Informasi
+      <span class="footer-divider">|</span>
+      Dusun Demangan, Desa Ngluwar, Kec. Ngluwar, Kab. Magelang
+    </p>
+    <p style="margin-top:6px; font-size:0.78rem; opacity:0.6;">
+      © 2025 KKN 84.144 UPNVY. Website ini dibuat untuk keperluan pengabdian masyarakat.
+    </p>
+  </footer>
+
+  <!-- ==================== SCRIPT ==================== -->
+  <script>
+    // ============================================================
+    // DATABASE UMKM — Update data di sini sesuai informasi asli
+    // ============================================================
+    const databaseUMKM = [
+      {
+        id: "srengkot",
+        name: "Srengkot",
+        category: "Fashion dan Kerajinan",
+        catClass: "cat-fashion",
+        bgClass: "bg-fashion",
+        emoji: "👜",
+        location: "RT 03, Dusun Demangan",
+        tagline: "Kerajinan srengkot berbahan plastik gulungan produksi Ibu Eni Surtini, 10–15 buah per hari.",
+      },
+      {
+        id: "miss-aisyah",
+        name: "Miss Aisyah Butik",
+        category: "Fashion dan Kerajinan",
+        catClass: "cat-fashion",
+        bgClass: "bg-fashion",
+        emoji: "👗",
+        location: "RT 01, Dusun Demangan",
+        tagline: "Busana Muslimah — gamis, jilbab, pakaian tidur — berkualitas dengan harga terjangkau.",
+      },
+      {
+        id: "chatering",
+        name: "Catering Mbak Lulu",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🍱",
+        location: "RT 03, Dusun Demangan",
+        tagline: "Layanan katering untuk acara keluarga dan kegiatan masyarakat Dusun Demangan.",
+      },
+      {
+        id: "kelangkeling",
+        name: "Kelang Keling Bu Umiyatun",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🥤",
+        location: "Dusun Demangan",
+        tagline: "Camilan kelang keling tradisional, usaha 15 tahun milik Ibu Umiyatun dengan tepung Muntilan.",
+      },
+      {
+        id: "bolukelapa",
+        name: "Bolu Kelapa Cahaya Bokel",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🍰",
+        location: "Dusun Demangan",
+        tagline: "Produksi 400–450 bolu per hari, meningkat 1.000 buah saat nyadran, menjangkau Jakarta.",
+      },
+      {
+        id: "farhan-snack",
+        name: "Farhan Snack",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🧆",
+        location: "RT 01, Dusun Demangan",
+        tagline: "Keripik tempe, bawang, dan seledri racikan Pak Agus Indriyanto, dipasarkan di Pasar Ngluwar.",
+      },
+      {
+        id: "gulajawa",
+        name: "Gula Jawa",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🍯",
+        location: "Dusun Demangan",
+        tagline: "Gula jawa murni dari nira kelapa sendiri, usaha turun-temurun Ibu Siti Maisaroh sejak 1987.",
+      },
+      {
+        id: "service",
+        name: "Dakir El Servis Elektronik dan Sparepart",
+        category: "Jasa dan Persewaan",
+        catClass: "cat-jasa",
+        bgClass: "bg-jasa",
+        emoji: "📺",
+        location: "RT 03, Dusun Demangan",
+        tagline: "Servis TV, mesin cuci & kulkas oleh Mas Modakir — layanan panggilan maupun datang langsung.",
+      },
+      {
+        id: "warungmbaktun",
+        name: "Warung Mbak Atun",
+        category: "Toko Kelontong dan Lainnya",
+        catClass: "cat-kelontong",
+        bgClass: "bg-kelontong",
+        emoji: "🏪",
+        location: "RT 03, Dusun Demangan",
+        tagline: "Warung harian 6 tahun favorit warga, jajanan anak terlengkap, pernah dapat program UMKM.",
+      },
+      {
+        id: "galundeng",
+        name: "Galundeng & Keripik Bu Atik",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🍢",
+        location: "RT 02, Dusun Demangan",
+        tagline: "Resep turun-temurun lebih dari 25 tahun oleh Ibu Atik, produksi dua kali sehari.",
+      },
+      {
+        id: "jajananpasar",
+        name: "Jajanan Pasar Bu Ismidah",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🫙",
+        location: "Dusun Demangan",
+        tagline: "Risoles, lapis, dadar gulung 300 buah/hari ke Pasar Gesikan — berdiri sejak 2005.",
+      },
+      {
+        id: "alfan-catering",
+        name: "Alfan Catering",
+        category: "Kuliner dan Makanan Olahan",
+        catClass: "cat-kuliner",
+        bgClass: "bg-kuliner",
+        emoji: "🍽️",
+        location: "Dusun Demangan",
+        tagline: "Nasi box & prasmanan sejak 2019 — bistik ayam, sate, opor — melayani hingga Ngawi.",
+      },
+      {
+        id: "semanggitour",
+        name: "Semanggi Tour Service",
+        category: "Jasa dan Persewaan",
+        catClass: "cat-jasa",
+        bgClass: "bg-jasa",
+        emoji: "🚐",
+        location: "Dusun Demangan",
+        tagline: "Sewa Avanza–Hiace plus sopir dalam & luar kota, milik Pak Sugeng Santoso, 3 tahun berjalan.",
+      },
+      {
+        id: "warungseblak",
+        name: "Warung Seblak",
+        category: "Toko Kelontong dan Lainnya",
+        catClass: "cat-kelontong",
+        bgClass: "bg-kelontong",
+        emoji: "🌶️",
+        location: "Dusun Demangan",
+        tagline: "Aneka olahan seblak Bu Rohaniana, jajanan favorit masyarakat Demangan sejak 2019.",
+      },
+      {
+        id: "yonobuah",
+        name: "Buah Pak Yono",
+        category: "Toko Kelontong dan Lainnya",
+        catClass: "cat-kelontong",
+        bgClass: "bg-kelontong",
+        emoji: "🍉",
+        location: "Dusun Demangan",
+        tagline: "Buah segar dari Pasar Gamping setiap malam, buka 07.00–20.00, sudah 18 tahun beroperasi.",
+      },
+      {
+        id: "gasflower",
+        name: "Agen Gas, Florist, & Ternak Ikan",
+        category: "Toko Kelontong dan Lainnya",
+        catClass: "cat-kelontong",
+        bgClass: "bg-kelontong",
+        emoji: "⛽",
+        location: "Dusun Demangan",
+        tagline: "Distribusi LPG ~150 tabung/minggu, budidaya ikan, dan penjualan bunga potong.",
+      },
+      {
+        id: "soundsystem",
+        name: "Ria Nada Sound System",
+        category: "Jasa dan Persewaan",
+        catClass: "cat-jasa",
+        bgClass: "bg-jasa",
+        emoji: "🔊",
+        location: "Dusun Demangan",
+        tagline: "Sewa sound system sejak 1994 oleh Pak Mahfud, melayani acara hingga Semarang & Bantul.",
+      },
+    ];
+
+
+
+    // Render kartu UMKM
+    const grid = document.getElementById('umkmGrid');
+    databaseUMKM.forEach(umkm => {
+      const card = document.createElement('a');
+      card.className = 'umkm-card';
+      card.href = `detail.html?id=${umkm.id}`;
+      card.title = `Lihat detail ${umkm.name}`;
+      card.innerHTML = `
+          <div class="card-emoji-header ${umkm.bgClass}">
+            <span style="filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));">${umkm.emoji}</span>
+          </div>
+          <div class="card-body">
+            <span class="card-category-badge ${umkm.catClass}">${umkm.category}</span>
+            <div class="card-name">${umkm.name}</div>
+            <div class="card-tagline">${umkm.tagline}</div>
+            <div class="card-footer-row">
+              <span class="card-location">📍 ${umkm.location}</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>
+        `;
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+
 </html>
