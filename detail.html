@@ -5,17 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Profil UMKM - Dusun Demangan</title>
+    <meta name="description"
+        content="Profil lengkap UMKM Dusun Demangan — produk, kontak, dan lokasi. Program KKN 84.144 UPN Veteran Yogyakarta, Prodi Sistem Informasi.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <style>
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+        }
+
+        /* ── Prevent horizontal scroll ── */
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         :root {
@@ -26,16 +37,21 @@
             --color-lime-green: #1DB233;
             --color-deep-green: #004025;
             --text-dark: #2F3E46;
+            --text-muted: #7a8c7e;
             --white: #FFFFFF;
+            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius-sm: 10px;
+            --radius-md: 16px;
         }
 
         body {
             background-color: var(--color-bg-light);
             color: var(--text-dark);
             min-height: 100vh;
-            padding: 24px;
+            padding: 12px 24px;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
 
         .container {
@@ -43,8 +59,8 @@
             width: 100%;
             background: var(--white);
             border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 36px;
+            box-shadow: var(--shadow-card);
             border: 1px solid rgba(107, 112, 92, 0.15);
             height: fit-content;
         }
@@ -57,8 +73,10 @@
             color: var(--color-sage);
             font-weight: 600;
             font-size: 0.9rem;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             transition: color 0.2s;
+            min-height: 44px;
+            /* touch target */
         }
 
         .btn-back:hover {
@@ -72,34 +90,73 @@
         }
 
         .umkm-title {
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 5vw, 1.8rem);
             color: var(--color-deep-green);
             font-weight: 700;
+            line-height: 1.3;
         }
 
         .umkm-meta {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--color-terracotta);
             font-weight: 600;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* ── Badge kategori berwarna ── */
+        .cat-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 4px;
+        }
+
+        .cat-badge.kuliner {
+            background-color: #fff3e0;
+            color: #bf5000;
+            border: 1px solid #ffcc80;
+        }
+
+        .cat-badge.kelontong {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #90caf9;
+        }
+
+        .cat-badge.jasa {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            border: 1px solid #a5d6a7;
+        }
+
+        .cat-badge.fashion {
+            background-color: #fce4ec;
+            color: #880e4f;
+            border: 1px solid #f48fb1;
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--color-deep-green);
             margin: 20px 0 8px 0;
         }
 
         .umkm-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
+            font-size: 0.93rem;
+            line-height: 1.75;
             color: var(--color-sage);
             text-align: justify;
         }
 
         .catalog-box {
             background-color: #FAF8F5;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             padding: 16px;
             border: 1px dashed var(--color-sand);
             margin-top: 10px;
@@ -108,7 +165,9 @@
         .catalog-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             font-size: 0.9rem;
         }
@@ -117,9 +176,16 @@
             border-bottom: none;
         }
 
+        .catalog-item span:first-child {
+            flex: 1;
+            min-width: 0;
+            word-break: break-word;
+        }
+
         .price {
             font-weight: 700;
             color: var(--color-lime-green);
+            white-space: nowrap;
         }
 
         .action-buttons {
@@ -131,17 +197,19 @@
 
         .btn-action {
             flex: 1;
-            min-width: 200px;
+            min-width: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 20px;
-            border-radius: 10px;
+            padding: 13px 20px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: transform 0.2s;
+            transition: transform 0.2s, opacity 0.2s;
+            min-height: 48px;
+            /* touch target */
         }
 
         .btn-wa {
@@ -157,8 +225,245 @@
 
         .btn-action:hover {
             transform: translateY(-2px);
+            opacity: 0.92;
+        }
+
+        /* ── Galeri Foto ── */
+        .gallery-section {
+            margin-bottom: 24px;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-sage) transparent;
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: var(--color-sage);
+            border-radius: 99px;
+        }
+
+        .gallery-img {
+            flex: 0 0 auto;
+            width: 220px;
+            height: 165px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            border-color: var(--color-sage);
+        }
+
+        .gallery-empty {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-style: italic;
+        }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        .lightbox-nav {
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .lightbox-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            border-radius: 99px;
+            padding: 8px 22px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .lightbox-btn:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .lightbox-counter {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* ── Touch devices: disable hover, use active ── */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-action:hover {
+                transform: none;
+                opacity: 1;
+            }
+
+            .btn-action:active {
+                transform: scale(0.97);
+                opacity: 0.85;
+            }
+
+            .btn-back:hover {
+                color: var(--color-sage);
+            }
+
+            .btn-back:active {
+                color: var(--color-terracotta);
+            }
+        }
+
+        /* ── Tablet portrait (≤ 768px) ── */
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .container {
+                padding: 28px 24px;
+                border-radius: 16px;
+            }
+        }
+
+        /* ── Mobile besar (≤ 600px) ── */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            .container {
+                padding: 22px 18px;
+                border-radius: 14px;
+            }
+
+            .btn-back {
+                font-size: 0.85rem;
+                margin-bottom: 18px;
+            }
+
+            .umkm-meta {
+                font-size: 0.82rem;
+            }
+
+            .section-title {
+                font-size: 0.98rem;
+                margin: 16px 0 6px;
+            }
+
+            .umkm-desc {
+                font-size: 0.88rem;
+            }
+
+            .catalog-item {
+                font-size: 0.85rem;
+            }
+
+            .action-buttons {
+                gap: 10px;
+                margin-top: 22px;
+            }
+
+            .btn-action {
+                font-size: 0.85rem;
+                padding: 12px 16px;
+                min-width: 0;
+            }
+        }
+
+        /* ── Mobile kecil (≤ 420px) ── */
+        @media (max-width: 420px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .container {
+                padding: 18px 14px;
+                border-radius: 12px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .catalog-item {
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .price {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ── Mobile sangat kecil (≤ 360px) ── */
+        @media (max-width: 360px) {
+            body {
+                padding: 8px 4px;
+            }
+
+            .container {
+                padding: 16px 12px;
+            }
         }
     </style>
+
 </head>
 
 <body>
@@ -168,8 +473,14 @@
         <a href="index.html" class="btn-back">← Kembali ke Peta Dashboard</a>
 
         <div class="header-section">
-            <h1 class="umkm-title" id="title">Loading...</h1>
+            <h1 class="umkm-title" id="title">Memuat...</h1>
             <div class="umkm-meta" id="meta">...</div>
+        </div>
+
+        <!-- Galeri Foto -->
+        <div class="gallery-section" id="gallerySection" style="display:none">
+            <h2 class="section-title">Foto UMKM</h2>
+            <div class="gallery-scroll" id="galleryScroll"></div>
         </div>
 
         <h2 class="section-title">Cerita & Profil UMKM</h2>
@@ -187,290 +498,285 @@
         </div>
     </div>
 
-    <!-- SCRIPT DATABASE DINAMIS -->
-    <script>
-        // Database JSON UMKM Demangan
-        const databaseUMKM = {
-            "miss-aisyah": {
-                name: "Miss Aisyah Butik",
-                owner: "Ibu Yuliana",
-                location: "RT 01 Dusun Demangan",
-                category: "Fashion & Busana Muslimah",
-                story: "Miss Aisyah Butik berawal dari hobi fashion sang pemilik. Mengawali pemasaran lewat media sosial, kini butik ini fokus menghadirkan produk busana Muslimah berkualitas menengah ke bawah yang ramah di kantong masyarakat dengan memberdayakan lulusan SMK lokal Ngluwar.",
-                catalog: [
-                    { name: "Jilbab (Laris)", price: "Rp 49.000" },
-                    { name: "Gamis & Baju Santai", price: "Rp 100.000 - Rp 425.000" }
-                ],
-                wa: "https://wa.me/628123456789", // Ganti no WA asli
-                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
-            },
-            "farhan-snack": {
-                name: "Farhan Snack",
-                owner: "Bapak Agus Indriyanto",
-                location: "RT 01 Dusun Demangan",
-                category: "Kuliner / Keripik & Camilan",
-                story: "Usaha olahan camilan resep otodidak racikan Pak Agus. Menggunakan bahan baku tempe berkualitas dari Grogolan, Farhan Snack memberdayakan ibu-ibu tetangga kampung untuk proses pemotongan, penggorengan, hingga pembungkusan.",
-                catalog: [
-                    { name: "Keripik Tempe (180-200gr)", price: "Rp 7.000" },
-                    { name: "Keripik Seledri / Bawang (3kg)", price: "Rp 86.000" }
-                ],
-                wa: "https://wa.me/6283149523878",
-                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
-            }
-            // Tambahkan data ID UMKM lainnya di sini...
-        };
-
-        // Fungsi membaca ID dari URL (contoh: detail.html?id=miss-aisyah)
-        const urlParams = new URLSearchParams(window.location.search);
-        const umkmId = urlParams.get('id');
-
-        // Tampilkan Data ke Halaman
-        if (umkmId && databaseUMKM[umkmId]) {
-            const data = databaseUMKM[umkmId];
-            document.getElementById('title').innerText = data.name;
-            document.getElementById('meta').innerText = `${data.category} • ${data.location} (Pemilik: ${data.owner})`;
-            document.getElementById('story').innerText = data.story;
-            document.getElementById('waLink').href = data.wa;
-            document.getElementById('mapsLink').href = data.maps;
-
-            const catalogBox = document.getElementById('catalog');
-            catalogBox.innerHTML = '';
-            data.catalog.forEach(item => {
-                catalogBox.innerHTML += `
-                    <div class="catalog-item">
-                        <span>${item.name}</span>
-                        <span class="price">${item.price}</span>
-                    </div>
-                `;
-            });
-        } else {
-            document.querySelector('.container').innerHTML = '<h2>Data UMKM tidak ditemukan.</h2><br><a href="index.html">Kembali ke Peta</a>';
-        }
-    </script>
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Profil UMKM - Dusun Demangan</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        :root {
-            --color-terracotta: #E07A5F;
-            --color-sand: #F2CC8F;
-            --color-sage: #6B705C;
-            --color-bg-light: #F4F1DE;
-            --color-lime-green: #1DB233;
-            --color-deep-green: #004025;
-            --text-dark: #2F3E46;
-            --white: #FFFFFF;
-        }
-
-        body {
-            background-color: var(--color-bg-light);
-            color: var(--text-dark);
-            min-height: 100vh;
-            padding: 24px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: var(--white);
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(107, 112, 92, 0.15);
-            height: fit-content;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--color-sage);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            transition: color 0.2s;
-        }
-
-        .btn-back:hover {
-            color: var(--color-terracotta);
-        }
-
-        .header-section {
-            border-bottom: 2px solid var(--color-sand);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-        }
-
-        .umkm-title {
-            font-size: 1.8rem;
-            color: var(--color-deep-green);
-            font-weight: 700;
-        }
-
-        .umkm-meta {
-            font-size: 0.9rem;
-            color: var(--color-terracotta);
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--color-deep-green);
-            margin: 20px 0 8px 0;
-        }
-
-        .umkm-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--color-sage);
-            text-align: justify;
-        }
-
-        .catalog-box {
-            background-color: #FAF8F5;
-            border-radius: 12px;
-            padding: 16px;
-            border: 1px dashed var(--color-sand);
-            margin-top: 10px;
-        }
-
-        .catalog-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            font-size: 0.9rem;
-        }
-
-        .catalog-item:last-child {
-            border-bottom: none;
-        }
-
-        .price {
-            font-weight: 700;
-            color: var(--color-lime-green);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 28px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            flex: 1;
-            min-width: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-        }
-
-        .btn-wa {
-            background-color: var(--color-lime-green);
-            color: var(--white);
-        }
-
-        .btn-maps {
-            background-color: var(--white);
-            color: var(--color-terracotta);
-            border: 1.5px solid var(--color-terracotta);
-        }
-
-        .btn-action:hover {
-            transform: translateY(-2px);
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-        <!-- Tombol Kembali ke Peta Utama -->
-        <a href="index.html" class="btn-back">← Kembali ke Peta Dashboard</a>
-
-        <div class="header-section">
-            <h1 class="umkm-title" id="title">Loading...</h1>
-            <div class="umkm-meta" id="meta">...</div>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" id="lightboxImg" alt="Foto UMKM">
+        <div class="lightbox-nav">
+            <button class="lightbox-btn" id="lightboxPrev">&#8592;</button>
+            <button class="lightbox-btn" id="lightboxNext">&#8594;</button>
         </div>
-
-        <h2 class="section-title">Cerita & Profil UMKM</h2>
-        <p class="umkm-desc" id="story">...</p>
-
-        <h2 class="section-title">Katalog & Harga Produk</h2>
-        <div class="catalog-box" id="catalog">
-            <!-- Katalog akan diisi oleh JavaScript -->
-        </div>
-
-        <!-- Tombol Aksi Kontak & Direct Maps -->
-        <div class="action-buttons">
-            <a href="#" id="waLink" target="_blank" class="btn-action btn-wa">💬 Hubungi via WhatsApp</a>
-            <a href="#" id="mapsLink" target="_blank" class="btn-action btn-maps">📍 Petunjuk Arah Google Maps</a>
-        </div>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
     </div>
 
     <!-- SCRIPT DATABASE DINAMIS -->
     <script>
+        // ============================================================
         // Database JSON UMKM Demangan
+        // Tambahkan atau update data di sini sesuai informasi asli
+        // ============================================================
         const databaseUMKM = {
+
+            "srengkot": {
+                name: "Srengkot",
+                photos: ["IMG_5197.JPG", "IMG_5198.JPG", "IMG_5199.JPG", "IMG_5200.JPG", "IMG_5201.JPG", "IMG_5202.JPG", "IMG_5203.JPG", "IMG_5204.JPG", "IMG_5205.JPG", "IMG_5206.JPG", "IMG_5207.JPG", "IMG_5208.JPG", "IMG_5210.JPG", "IMG_5211.JPG", "IMG_5212.JPG", "IMG_5216.JPG", "IMG_5218.JPG"],
+                photoDir: "srengkotbueni",
+                owner: "Ibu Eni Surtini",
+                location: "RT 03, Dusun Demangan",
+                category: "Fashion dan Kerajinan",
+                story: "Srengkot adalah kerajinan tangan berbahan plastik gulungan yang diproduksi oleh Ibu Eni Surtini di RT 3 Dusun Demangan. Usaha ini telah berjalan selama kurang lebih tujuh tahun dengan kapasitas produksi 10–15 buah per hari, disesuaikan dengan permintaan karena sifatnya yang musiman. Bahan baku plastik gulungan diperoleh dari Grabag, dengan proses pembuatan sekitar satu jam per produk. Seluruh kegiatan produksi dilakukan secara mandiri oleh pemilik. Pemasaran dilakukan melalui Facebook (akun: Alfatih Alfatih PP Tas). Pengiriman pesanan di bawah 100 buah dilakukan langsung oleh pemilik, sedangkan pesanan lebih besar diambil sendiri oleh pembeli.",
+                catalog: [
+                    { name: "Srengkot Plastik Gulungan (per buah)", price: "Hubungi penjual" },
+                    { name: "Srengkot Plastik Jelly (per buah)", price: "± Rp 50.000" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
             "miss-aisyah": {
                 name: "Miss Aisyah Butik",
+                photos: ["IMG_5258.JPG", "IMG_5259.JPG", "IMG_5260.JPG", "IMG_5261.JPG", "IMG_5262.JPG"],
+                photoDir: "missaisyahbutik",
                 owner: "Ibu Yuliana",
-                location: "RT 01 Dusun Demangan",
-                category: "Fashion & Busana Muslimah",
-                story: "Miss Aisyah Butik berawal dari hobi fashion sang pemilik. Mengawali pemasaran lewat media sosial, kini butik ini fokus menghadirkan produk busana Muslimah berkualitas menengah ke bawah yang ramah di kantong masyarakat dengan memberdayakan lulusan SMK lokal Ngluwar.",
+                location: "RT 01, Dusun Demangan",
+                category: "Fashion dan Kerajinan",
+                story: "Miss Aisyah Butik adalah usaha fesyen muslimah milik Ibu Yuliana di RT 1 Dusun Demangan. Produk utamanya meliputi gamis, jilbab, dan pakaian tidur yang menyasar segmen pasar menengah ke bawah. Produk dipasok dari Tasikmalaya dan Temanggung, sedangkan bahan baku tekstil diperoleh dari Bandung, Tasikmalaya, dan Jakarta secara per kilogram. Usaha ini berawal dari hobi fesyen Ibu Yuliana yang awalnya dipromosikan melalui komunitas Facebook pada tahun 2016. Saat ini memanfaatkan Shopee dan TikTok sebagai media promosi digital dan memiliki sekitar 5–6 karyawan. Produk paling laris adalah jilbab dengan sekali launching bisa mencapai 10.000 pcs. Omzet meningkat signifikan saat Ramadan dan Lebaran.",
                 catalog: [
-                    { name: "Jilbab (Laris)", price: "Rp 49.000" },
-                    { name: "Gamis & Baju Santai", price: "Rp 100.000 - Rp 425.000" }
+                    { name: "Gamis", price: "Rp 100.000 – Rp 425.000" },
+                    { name: "Jilbab", price: "Rp 49.000" },
+                    { name: "Pakaian Tidur / Baju Santai", price: "Hubungi penjual" }
                 ],
-                wa: "https://wa.me/628123456789", // Ganti no WA asli
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "chatering": {
+                name: "Catering Mbak Lulu",
+                photos: ["IMG_5540.JPG", "IMG_5541.JPG", "IMG_5543.JPG", "IMG_5544.JPG"],
+                photoDir: "chateringbululu",
+                owner: "Mbak Risma",
+                location: "RT 03, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Catering Mbak Lulu adalah usaha katering yang berlokasi di RT 3 Dusun Demangan, dikelola oleh Mbak Risma. Usaha ini melayani berbagai kebutuhan konsumsi untuk acara keluarga maupun kegiatan kemasyarakatan. Dengan memanfaatkan bahan-bahan berkualitas dan pelayanan yang baik, katering ini menjadi salah satu pilihan terpercaya warga Dusun Demangan.",
+                catalog: [
+                    { name: "Paket Catering Acara", price: "Hubungi penjual" },
+                    { name: "Nasi Kotak / Prasmanan", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "kelangkeling": {
+                name: "Kelang Keling Bu Umiyatun",
+                photos: ["IMG_5263.JPG", "IMG_5264.JPG", "IMG_5265.JPG", "IMG_5266.JPG", "IMG_5267.JPG", "IMG_5268.JPG", "IMG_5269.JPG"],
+                photoDir: "kelangkelingbuumiatun",
+                owner: "Ibu Umiyatun",
+                location: "RT 04, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Usaha Kelang Keling milik Ibu Umiyatun telah berproduksi selama sekitar 15 tahun. Awalnya memproduksi berbagai camilan, namun kini fokus pada kelang keling sebagai produk harian unggulan karena memiliki permintaan stabil. Setiap kali memasak menggunakan 3 kg telur dan 5 kg tepung untuk menghasilkan sekitar 100–110 bungkus seharga Rp 6.500/bungkus. Tepung bahan baku diperoleh dari Muntilan. Produk didistribusikan sendiri ke warung-warung dari Ngluwar hingga Talun dan Gunung Pring, seminggu sekali. Saat Lebaran produksi meningkat dengan menambah tenaga dari tetangga. Di samping kelang keling, keluarga juga mengelola warung kecil yang stoknya dibeli dari pasar.",
+                catalog: [
+                    { name: "Kelang Keling (1 ons)", price: "Rp 6.500" },
+                    { name: "Kacang Bawang (musiman)", price: "Hubungi penjual" },
+                    { name: "Molen Kacang (musiman / Lebaran)", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/6283827305950",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "bolukelapa": {
+                name: "Bolu Kelapa Cahaya Bokel",
+                photos: ["IMG_5273.JPG", "IMG_5274.JPG", "IMG_5275.JPG", "IMG_5276.JPG", "IMG_5277.JPG", "IMG_5278.JPG", "IMG_5279.JPG", "IMG_5280.JPG", "IMG_5281.JPG", "IMG_5282.JPG", "IMG_5283.JPG", "IMG_5284.JPG", "IMG_5285.JPG", "IMG_5286.JPG", "IMG_5287.JPG", "IMG_5288.JPG", "IMG_5289.JPG", "IMG_5290.JPG", "IMG_5291.JPG"],
+                photoDir: "bolukelapabulia",
+                owner: "Lia Khoirunnisa",
+                location: "RT 05, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Bolu Kelapa 'Cahaya Bokel' adalah usaha kuliner milik Lia Khoirunnisa yang telah berjalan selama 6–7 tahun. Produksi harian mencapai 400–450 butir bolu kelapa, dan bisa meningkat hingga 1.000 butir saat musim nyadran. Berawal dari kebiasaan membuat makanan saat mondok yang mendapat respon positif, usaha ini kini menjadi sumber penghidupan utama. Bahan baku utama adalah kelapa dari warga sekitar Demangan. Produk dipasarkan melalui status WhatsApp dan telah menjangkau pelanggan hingga Jakarta. Tahan selama satu minggu, cocok untuk oleh-oleh. Hanya melayani wilayah Kecamatan Ngluwar untuk pengiriman reguler.",
+                catalog: [
+                    { name: "Bolu Kelapa Cahaya Bokel (per butir)", price: "Rp 1.000" }
+                ],
+                wa: "https://wa.me/6283186322757",
                 maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
             },
             "farhan-snack": {
                 name: "Farhan Snack",
+                photos: ["IMG_5297.JPG", "IMG_5298.JPG", "IMG_5299.JPG", "IMG_5300.JPG", "IMG_5301.JPG", "IMG_5302.JPG", "IMG_5303.JPG", "IMG_5304.JPG", "IMG_5306.JPG", "IMG_5307.JPG", "IMG_5308.JPG", "IMG_5309.JPG", "IMG_5310.JPG", "IMG_5312.JPG", "IMG_5313.JPG", "IMG_5314.JPG", "IMG_5315.JPG", "IMG_5316.JPG", "IMG_5317.JPG", "IMG_5318.JPG", "IMG_5319.JPG", "IMG_5320.JPG", "IMG_5321.JPG", "IMG_5323.JPG"],
+                photoDir: "farhansnack",
                 owner: "Bapak Agus Indriyanto",
-                location: "RT 01 Dusun Demangan",
-                category: "Kuliner / Keripik & Camilan",
-                story: "Usaha olahan camilan resep otodidak racikan Pak Agus. Menggunakan bahan baku tempe berkualitas dari Grogolan, Farhan Snack memberdayakan ibu-ibu tetangga kampung untuk proses pemotongan, penggorengan, hingga pembungkusan.",
+                location: "RT 01, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Farhan Snack adalah usaha keripik milik Bapak Agus Indriyanto di RT 1 yang telah berjalan sejak 2013. Produk awal berupa keripik seledri dan bawang, kemudian berkembang dengan keripik tempe setelah pandemi. Resep keripik tempe dikembangkan secara otodidak oleh pemilik. Diproduksi oleh 4 orang pekerja (ibu-ibu dari sekitar Demangan) mulai pukul 05.00, menghasilkan 20–30 bungkus per hari tergantung cuaca. Bahan baku tempe dipasok dari wilayah Salam–Dusun Grogolan, sedangkan tepung pati untuk seledri dan bawang dibeli di pasar. Produk dipasarkan ke Pasar Ngluwar, warung-warung sekitar, dan tersedia untuk pembelian langsung di lokasi. Produksi bertambah saat Lebaran.",
                 catalog: [
-                    { name: "Keripik Tempe (180-200gr)", price: "Rp 7.000" },
-                    { name: "Keripik Seledri / Bawang (3kg)", price: "Rp 86.000" }
+                    { name: "Keripik Tempe (180 gr)", price: "Rp 7.000" },
+                    { name: "Keripik Seledri / Bawang (3 kg)", price: "Rp 86.000 (tengkulak) / Rp 115.000 (pembeli langsung)" }
                 ],
                 wa: "https://wa.me/6283149523878",
                 maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "gulajawa": {
+                name: "Gula Jawa Bu Siti",
+                photos: ["IMG_5324.JPG", "IMG_5325.JPG", "IMG_5326.JPG", "IMG_5327.JPG", "IMG_5328.JPG", "IMG_5329.JPG", "IMG_5331.JPG", "IMG_5332.JPG", "IMG_5333.JPG", "IMG_5334.JPG", "IMG_5335.JPG"],
+                photoDir: "gulajawabumaisaroh",
+                owner: "Ibu Siti Maisaroh",
+                location: "RT 04, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Usaha Gula Jawa milik Ibu Siti Maisaroh telah berdiri sejak 1987 — salah satu UMKM tertua di Dusun Demangan. Bahan baku nira diperoleh dari pohon kelapa milik sendiri (2 kelapa per hari). Proses produksi dilakukan setiap hari: sore hari nira dididihkan, lalu pagi harinya dimasak hingga menjadi gula. Kapasitas produksi sekitar 0,5 kg per hari dan menerima pesanan khusus. Produk digunakan untuk kebutuhan rumah tangga maupun pelengkap minuman tradisional seperti kopi.",
+                catalog: [
+                    { name: "Gula Jawa Murni (per kg)", price: "Rp 20.000 – Rp 22.000" }
+                ],
+                wa: "https://wa.me/6288882546318",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "service": {
+                name: "Dakir El Servis Elektronik",
+                photos: ["IMG_5343.JPG", "IMG_5344.JPG", "IMG_5345.JPG", "IMG_5346.JPG", "IMG_5347.JPG", "IMG_5348.JPG"],
+                photoDir: "dakirelservis",
+                owner: "Mas Modakir",
+                location: "RT 03, Dusun Demangan",
+                category: "Jasa dan Persewaan",
+                story: "Dakir El Servis adalah usaha jasa perbaikan elektronik milik Mas Modakir yang berlokasi di RT 3. Berdiri sekitar 1 tahun, usaha ini melayani servis televisi (LED maupun tabung), mesin cuci, dan kulkas. Mas Modakir belajar elektronik secara otodidak dari kakaknya dan sempat mendapat bimbingan dari Pak Kris, seorang dosen elektro. Sparepart diperoleh dari Malioboro Yogyakarta maupun Magelang, juga tersedia secara online. Melayani panggilan ke rumah pelanggan maupun pelanggan datang langsung. Buka 24 jam (konfirmasi WhatsApp terlebih dahulu). Pesanan dikerjakan hari itu juga, kecuali kerusakan berat seperti kulkas yang bisa memakan waktu hingga 2 minggu.",
+                catalog: [
+                    { name: "Servis TV (LED / Tabung)", price: "Hubungi penjual" },
+                    { name: "Servis Mesin Cuci", price: "Hubungi penjual" },
+                    { name: "Servis Kulkas / Freezer", price: "Rp 25.000 – Rp 350.000" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "warungmbaktun": {
+                name: "Warung Mbak Atun",
+                photos: ["IMG_5423.JPG", "IMG_5424.JPG", "IMG_5425.JPG", "IMG_5426.JPG", "IMG_5427.JPG", "IMG_5429.JPG"],
+                photoDir: "warungmbaktun",
+                owner: "Mbak Atun",
+                location: "RT 03, Dusun Demangan",
+                category: "Toko Kelontong dan Lainnya",
+                story: "Warung Mbak Atun adalah warung kebutuhan sehari-hari yang telah beroperasi selama sekitar 6 tahun di RT 3 Dusun Demangan. Warung ini pernah mendapat dukungan program UMKM pemerintah era Jokowi. Produk paling diminati adalah jajanan anak-anak. Stok barang diperoleh dari pasar maupun sales yang datang secara rutin (seminggu sekali). Tersedia aneka jajanan (Rabu: es krim, Sabtu: jajanan), sehingga menjadi salah satu warung favorit anak-anak sekitar.",
+                catalog: [
+                    { name: "Aneka Jajanan Anak", price: "Beragam" },
+                    { name: "Kebutuhan Pokok Harian", price: "Beragam" },
+                    { name: "Es Krim (setiap Rabu)", price: "Beragam" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "galundeng": {
+                name: "Galundeng & Kletikan Bu Atik",
+                photos: ["IMG_5529.JPG", "IMG_5530.JPG", "IMG_5531.JPG", "IMG_5532.JPG", "IMG_5533.JPG", "IMG_5535.JPG", "IMG_5536.JPG", "IMG_5537.JPG"],
+                photoDir: "galundengkeripikbuatik",
+                owner: "Ibu Atik",
+                location: "RT 02, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Usaha galundeng dan kletikan milik Ibu Atik di RT 2 telah berjalan lebih dari 25–30 tahun dengan resep turun-temurun. Produksi dilakukan dua kali sehari: sore membuat santan yang dimasak dengan gula lalu didiamkan semalam, kemudian pagi diulen menjadi galundeng. Kapasitas 150 bungkus sekali buat (10 biji per bungkus). Selain galundeng, juga menjual kletikan, selondok, dan kerupuk. Produk didistribusikan ke toko-toko di sekitar Kecamatan Ngluwar dengan sistem titip (10 bungkus per warung). Dikelola berdua bersama suami.",
+                catalog: [
+                    { name: "Galundeng (per bungkus, isi 10)", price: "Rp 4.000" },
+                    { name: "Kletikan (per bungkus)", price: "Rp 7.500" },
+                    { name: "Selondok / Kerupuk", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/6285779529839",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "jajananpasar": {
+                name: "Jajanan Pasar Bu Ismidah",
+                photos: ["IMG_5430.JPG", "IMG_5431.JPG", "IMG_5433.JPG", "IMG_5434.JPG", "IMG_5435.JPG"],
+                photoDir: "jajananpasarbuismidah",
+                owner: "Bu Ismidah",
+                location: "Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Jajanan Pasar Bu Ismidah adalah usaha kuliner tradisional yang berdiri sejak 2005. Setiap hari memproduksi sekitar 300 pcs aneka jajanan seperti risoles, kue lapis, dan dadar gulung. Produk didistribusikan ke warung-warung di Pasar Gesikan (9 titik, masing-masing 50–100 biji). Pelanggan juga bisa datang langsung ke rumah. Saat Ramadan, pengantaran dilakukan pukul 14.00 dan penjualan berlangsung sore hari. Seluruh produksi dilakukan sendiri oleh Bu Ismidah. Jika harga bahan baku naik, ukuran produk dikecilkan untuk menjaga harga.",
+                catalog: [
+                    { name: "Risoles", price: "Hubungi penjual" },
+                    { name: "Kue Lapis", price: "Hubungi penjual" },
+                    { name: "Dadar Gulung", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "alfan-catering": {
+                name: "Alfan Catering",
+                owner: "Pemilik Usaha",
+                location: "RT 01, Dusun Demangan",
+                category: "Kuliner dan Makanan Olahan",
+                story: "Alfan Catering adalah usaha jasa boga yang berdiri sejak 2019 dan melayani nasi box maupun prasmanan. Menu andalannya antara lain bistik ayam, ayam krispi, sate ayam, opor ayam, kentang balado, ati sambel goreng, sayur krecek, capcay, sop ayam rambutan. Dipromosikan melalui TikTok dan Instagram (@alfancatering). Sistem pelayanan menggunakan metode drop, dan dapat memasak langsung di lokasi acara. Sudah melayani pesanan hingga Ngawi. Melibatkan 3 orang tenaga produksi dari warga sekitar Demangan. Bahan baku dipesan sesuai pesanan yang masuk. Persiapan dimulai dari pukul 01.00 dini hari.",
+                catalog: [
+                    { name: "Nasi Box (minimal 35 box)", price: "Hubungi penjual" },
+                    { name: "Prasmanan (minimal 50 porsi, termasuk alat makan & pramusaji)", price: "Hubungi penjual" },
+                    { name: "Menu Spesial (di luar pricelist)", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "semanggitour": {
+                name: "Semanggi Tour Service",
+                owner: "Pak Sugeng Santoso",
+                location: "Dusun Demangan",
+                category: "Jasa dan Persewaan",
+                story: "Semanggi Tour Service adalah usaha penyewaan kendaraan milik Pak Sugeng Santoso yang telah berjalan sekitar 3 tahun. Unit kendaraan merupakan hadiah dari Transindo (Adyatransindo, Sleman). Armada tersedia mulai dari Avanza hingga Hiace, lengkap dengan layanan sopir. Dipromosikan melalui Facebook dan Instagram. Layanan mencakup dalam kota (12 jam) maupun luar kota (per hari), dengan sistem pembayaran setelah selesai persewaan atau tunai di tempat. Melibatkan 3 orang tenaga kerja.",
+                catalog: [
+                    { name: "Sewa Avanza (+ sopir, dalam kota)", price: "Hubungi penjual" },
+                    { name: "Sewa Hiace (+ sopir)", price: "Hubungi penjual" },
+                    { name: "Paket Luar Kota (per hari)", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "warungseblak": {
+                name: "Warung Seblak Bu Rohaniana",
+                owner: "Bu Rohaniana",
+                location: "Dusun Demangan",
+                category: "Toko Kelontong dan Lainnya",
+                story: "Warung Seblak Bu Rohaniana dirintis sekitar tahun 2019 setelah anak pertamanya lulus sekolah. Usaha ini menyediakan berbagai olahan seblak sebagai jajanan yang digemari masyarakat sekitar dan menjadi salah satu pilihan kuliner kekinian di Dusun Demangan.",
+                catalog: [
+                    { name: "Aneka Olahan Seblak", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "yonobuah": {
+                name: "Buah Pak Yono",
+                owner: "Pak Suyono & Ibu Yuliatiningsih",
+                location: "RT 01, Dusun Demangan",
+                category: "Toko Kelontong dan Lainnya",
+                story: "Buah Pak Yono telah beroperasi selama kurang lebih 18 tahun di RT 1 Dusun Demangan. Berbagai buah segar diambil langsung setiap malam dari Pasar Gamping Yogyakarta agar kualitas terjaga. Buka setiap hari pukul 07.00–20.00 dengan satu tenaga kerja. Tersedia aneka buah musiman dengan harga terjangkau.",
+                catalog: [
+                    { name: "Semangka (per kg)", price: "Rp 10.000" },
+                    { name: "Jeruk (per kg)", price: "Rp 16.000" },
+                    { name: "Mangga (per kg)", price: "Rp 16.000 – Rp 27.000" },
+                    { name: "Melon (per kg)", price: "Rp 13.000" },
+                    { name: "Apel (per kg)", price: "Rp 38.000" },
+                    { name: "Pir (per kg)", price: "Rp 32.000" },
+                    { name: "Anggur (per kg)", price: "Rp 70.000" }
+                ],
+                wa: "https://wa.me/628123456789",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "gasflower": {
+                name: "Gas Mas Gama, Florist & Ternak Ikan",
+                owner: "Gama Ramdani / Ibu Cynthia",
+                location: "Dusun Demangan",
+                category: "Toko Kelontong dan Lainnya",
+                story: "Usaha Gas Mas Gama merupakan agen distribusi gas LPG yang telah berjalan sekitar 7 tahun, dengan kapasitas sekitar 150 tabung per minggu. Gas dipasok dari Mertoyudan. Selain gas, usaha ini mengembangkan budidaya ikan di 9 kolam (5 di balai desa, 3 di selatan Babadan) dan penjualan bunga potong segar sejak 1,5 tahun terakhir. Usaha melibatkan 5 orang pekerja.",
+                catalog: [
+                    { name: "Gas LPG 3 kg", price: "Hubungi penjual" },
+                    { name: "Gas LPG 12 kg", price: "Hubungi penjual" },
+                    { name: "Ikan Budidaya (per kg, ± 4 ekor)", price: "Hubungi penjual" },
+                    { name: "Bunga Potong Mawar (per tangkai)", price: "Hubungi penjual" },
+                    { name: "Bunga Potong (per bongkok, 10–15 tangkai)", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/6285868502143",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
+            },
+            "soundsystem": {
+                name: "Ria Nada Sound System",
+                owner: "Pak Mahfud Alabahriri",
+                location: "Dusun Demangan",
+                category: "Jasa dan Persewaan",
+                story: "Ria Nada Sound System adalah usaha penyewaan peralatan tata suara milik Pak Mahfud Alabahriri yang berdiri sejak 1994 setelah beliau lulus SMK. Pada tahun 1995 sudah melayani hingga luar daerah. Memiliki 2 unit sound system, masing-masing Rp 1 juta per hari, dioperasikan oleh 7 orang (cableman, driver, operator proyektor). Melayani acara pernikahan dan kesenian di Magelang, Sleman, Temanggung, Bantul, hingga Semarang. Pasca pandemi rata-rata 15 kali per bulan (sebelumnya hingga 30 kali). Layanan maksimal 8 jam, lebih dari itu dikenakan biaya tambahan. Sistem pembayaran fleksibel.",
+                catalog: [
+                    { name: "Sewa Sound System 1 Unit (per acara, maks 8 jam)", price: "Rp 1.000.000" },
+                    { name: "Paket Pernikahan", price: "Hubungi penjual" },
+                    { name: "Paket Kesenian / Hiburan", price: "Hubungi penjual" }
+                ],
+                wa: "https://wa.me/6208121595424",
+                maps: "https://www.google.com/maps/search/?api=1&query=-7.654388,110.273767"
             }
-            // Tambahkan data ID UMKM lainnya di sini...
         };
+
+
 
         // Fungsi membaca ID dari URL (contoh: detail.html?id=miss-aisyah)
         const urlParams = new URLSearchParams(window.location.search);
@@ -479,11 +785,79 @@
         // Tampilkan Data ke Halaman
         if (umkmId && databaseUMKM[umkmId]) {
             const data = databaseUMKM[umkmId];
+
+            // Update title tag
+            document.title = `${data.name} — UMKM Dusun Demangan`;
+
             document.getElementById('title').innerText = data.name;
-            document.getElementById('meta').innerText = `${data.category} • ${data.location} (Pemilik: ${data.owner})`;
+
+            // Badge kategori berwarna
+            const catMap = {
+                'Kuliner dan Makanan Olahan': 'kuliner',
+                'Toko Kelontong dan Lainnya': 'kelontong',
+                'Jasa dan Persewaan': 'jasa',
+                'Fashion dan Kerajinan': 'fashion'
+            };
+            const catClass = catMap[data.category] || '';
+            document.getElementById('meta').innerHTML =
+                `<span class="cat-badge ${catClass}">${data.category}</span><br>
+                 <span style="font-size:0.85rem;color:#7a8c7e;font-weight:400;">${data.location} &nbsp;•&nbsp; Pemilik: ${data.owner}</span>`;
             document.getElementById('story').innerText = data.story;
             document.getElementById('waLink').href = data.wa;
             document.getElementById('mapsLink').href = data.maps;
+
+            // Galeri Foto
+            const gallerySection = document.getElementById('gallerySection');
+            const galleryScroll = document.getElementById('galleryScroll');
+            galleryScroll.innerHTML = '';
+            if (data.photos && data.photos.length > 0 && data.photoDir) {
+                gallerySection.style.display = '';
+                let lightboxPhotos = [];
+                let lightboxIndex = 0;
+                data.photos.forEach((fname, idx) => {
+                    const src = `assets/UMKM/${data.photoDir}/${fname}`;
+                    lightboxPhotos.push(src);
+                    const img = document.createElement('img');
+                    img.className = 'gallery-img';
+                    img.src = src;
+                    img.alt = `Foto ${data.name} ${idx + 1}`;
+                    img.loading = 'lazy';
+                    img.addEventListener('click', () => openLightbox(lightboxPhotos, idx));
+                    galleryScroll.appendChild(img);
+                });
+
+                // Lightbox logic
+                const lb = document.getElementById('lightbox');
+                const lbImg = document.getElementById('lightboxImg');
+                const lbCounter = document.getElementById('lightboxCounter');
+                function openLightbox(photos, index) {
+                    lightboxPhotos = photos;
+                    lightboxIndex = index;
+                    lbImg.src = photos[index];
+                    lbCounter.textContent = `${index + 1} / ${photos.length}`;
+                    lb.classList.add('active');
+                }
+                document.getElementById('lightboxClose').onclick = () => lb.classList.remove('active');
+                document.getElementById('lightboxNext').onclick = () => {
+                    lightboxIndex = (lightboxIndex + 1) % lightboxPhotos.length;
+                    lbImg.src = lightboxPhotos[lightboxIndex];
+                    lbCounter.textContent = `${lightboxIndex + 1} / ${lightboxPhotos.length}`;
+                };
+                document.getElementById('lightboxPrev').onclick = () => {
+                    lightboxIndex = (lightboxIndex - 1 + lightboxPhotos.length) % lightboxPhotos.length;
+                    lbImg.src = lightboxPhotos[lightboxIndex];
+                    lbCounter.textContent = `${lightboxIndex + 1} / ${lightboxPhotos.length}`;
+                };
+                lb.addEventListener('click', (e) => { if (e.target === lb) lb.classList.remove('active'); });
+                document.addEventListener('keydown', (e) => {
+                    if (!lb.classList.contains('active')) return;
+                    if (e.key === 'Escape') lb.classList.remove('active');
+                    if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+                    if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+                });
+            } else {
+                gallerySection.style.display = 'none';
+            }
 
             const catalogBox = document.getElementById('catalog');
             catalogBox.innerHTML = '';
@@ -496,7 +870,11 @@
                 `;
             });
         } else {
-            document.querySelector('.container').innerHTML = '<h2>Data UMKM tidak ditemukan.</h2><br><a href="index.html">Kembali ke Peta</a>';
+            document.querySelector('.container').innerHTML = `
+                <h2 style="color:#004025; margin-bottom:12px;">Data UMKM tidak ditemukan.</h2>
+                <p style="color:#7a8c7e; margin-bottom:20px;">UMKM dengan ID "<strong>${umkmId || '-'}</strong>" belum tersedia di database.</p>
+                <a href="index.html" style="color:#1DB233; font-weight:600; text-decoration:none;">← Kembali ke Peta</a>
+            `;
         }
     </script>
 </body>
